@@ -1,0 +1,24 @@
+# Bifrost Ops — example only; NOT wired to Terraform and NOT deployable as-is.
+# Intent: capture operator-reviewed inputs before mapping them to a pinned
+# Cisco NAC module schema. Do not assume these keys are accepted by NAC.
+#
+# Recovery: restore the last approved Git revision and inspect a new Terraform
+# plan; a Git revert alone does not restore APIC configuration or Terraform state.
+environment: lab
+
+# Logical inventory label, not an APIC hostname or secret.
+# Keep real APIC URLs and authentication outside the repository.
+fabric_name: bifrost-lab
+
+# Expected management-plane mode for planning discussions.
+# Confirm actual APIC release and sandbox capability before implementation.
+controller:
+  type: cisco-aci
+  # Placeholder only: this is deliberately not a reachable APIC endpoint.
+  endpoint_reference: SET_VIA_SECRET_MANAGER
+
+# Planned access policy objects. Populate only after inventory and ownership
+# boundaries are agreed; modifying port policy can disrupt connectivity.
+access_policy:
+  enabled: false
+  change_ticket: REQUIRED_BEFORE_ENABLEMENT
